@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish Your Potential - Blog & Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #004E89;
+            --accent: #F7B801;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+            --success: #2ECC71;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-hero: linear-gradient(135deg, #FF6B35 0%, #F7B801 50%, #004E89 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Dynamic Header with Auto-updating Time */
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .live-info {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .live-time, .live-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .currency-toggle {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .currency-toggle:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-hero);
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-60px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 2rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+        }
+
+        .cta-button {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 968px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .sidebar h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar-menu a {
+            color: var(--gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: var(--gradient-hero);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .stat-card:nth-child(2) {
+            border-left-color: var(--secondary);
+            animation-delay: 0.1s;
+        }
+
+        .stat-card:nth-child(3) {
+            border-left-color: var(--accent);
+            animation-delay: 0.2s;
+        }
+
+        .stat-card:nth-child(4) {
+            border-left-color: var(--success);
+            animation-delay: 0.3s;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card h4 {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card .value {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .subtitle {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Blog/Product Cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .content-card:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .content-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255,255,255,0.95);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card-price {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Create Button */
+        .create-btn {
+            background: var(--gradient-hero);
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: scaleIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: var(--gradient-hero);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.3rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .file-upload {
+            border: 2px dashed #e0e0e0;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary);
+            background: rgba(255,107,53,0.05);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--dark);
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        /* Profile Section */
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            padding: 0.6rem 1.2rem;
+            background: var(--light);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .live-info {
+                font-size: 0.75rem;
+                gap: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Traffic Chart */
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        .chart-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 1rem;
+            height: 200px;
+            padding: 1rem 0;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gradient-hero);
+            border-radius: 8px 8px 0 0;
+            min-height: 20px;
+            position: relative;
+            animation: growUp 0.8s ease-out backwards;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+            transform: translateY(-5px);
+        }
+
+        @keyframes growUp {
+            from { height: 0; }
+        }
+
+        .chart-bar:nth-child(2) { animation-delay: 0.1s; }
+        .chart-bar:nth-child(3) { animation-delay: 0.2s; }
+        .chart-bar:nth-child(4) { animation-delay: 0.3s; }
+        .chart-bar:nth-child(5) { animation-delay: 0.4s; }
+        .chart-bar:nth-child(6) { animation-delay: 0.5s; }
+        .chart-bar:nth-child(7) { animation-delay: 0.6s; }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--dark);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Dynamic Time -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">Publish Your Potential</div>
+            
+            <div class="live-info">
+                <div class="live-time">
+                    <span class="pulse-dot"></span>
+                    <span id="currentTime">00:00:00</span>
+                </div>
+                <div class="live-date">
+                    <span id="currentDate">Loading...</span>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="#blogs">Blogs</a>
+                <a href="#products">Products</a>
+                <a href="#analytics">Analytics</a>
+                <a href="#profile">Profile</a>
+            </nav>
+
+            <button class="currency-toggle" onclick="toggleCurrency()">
+                <span id="currencyDisplay">₹ INR</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Publish Your Potential</h1>
+            <p>Share your stories, showcase your products. Empower your digital presence with our free blogging and marketplace platform.</p>
+            <button class="cta-button" onclick="openModal('blog')">Start Publishing</button>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Free Blogs</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Free Products</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10K</div>
+                    <div class="stat-label">Characters/Post</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <div class="container">
+        <div class="dashboard">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>Dashboard</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#overview" class="active">
+                        <svg class="menu-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                        Overview
+                    </a></li>
+                    <li><a href="#blogs">
+                        <svg class="menu-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
+                        My Blogs
+                    </a></li>
+                    <li><a href="#products">
+                        <svg class="menu-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                        Products
+                    </a></li>
+                    <li><a href="#analytics">
+                        <svg class="menu-icon" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg>
+                        Analytics
+                    </a></li>
+                    <li><a href="#profile">
+                        <svg class="menu-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                        Profile
+                    </a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Stats Overview -->
+                <section id="overview">
+                    <div class="section-header">
+                        <h2 class="section-title">Overview</h2>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h4>TOTAL VIEWS</h4>
+                            <div class="value">12,453</div>
+                            <div class="subtitle">↑ 23% from last month</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>PUBLISHED BLOGS</h4>
+                            <div class="value">7/10</div>
+                            <div class="subtitle">3 slots remaining</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>ACTIVE PRODUCTS</h4>
+                            <div class="value">5/10</div>
+                            <div class="subtitle">5 slots remaining</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>TOTAL REVENUE</h4>
+                            <div class="value currency-value" data-inr="₹24,500" data-usd="$295">₹24,500</div>
+                            <div class="subtitle">This month</div>
+                        </div>
+                    </div>
+
+                    <!-- Traffic Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Traffic Analytics (Last 7 Days)</h3>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 60%;">
+                                <div class="bar-value">342</div>
+                                <div class="bar-label">Mon</div>
+                            </div>
+                            <div class="chart-bar" style="height: 80%;">
+                                <div class="bar-value">456</div>
+                                <div class="bar-label">Tue</div>
+                            </div>
+                            <div class="chart-bar" style="height: 45%;">
+                                <div class="bar-value">258</div>
+                                <div class="bar-label">Wed</div>
+                            </div>
+                            <div class="chart-bar" style="height: 95%;">
+                                <div class="bar-value">543</div>
+                                <div class="bar-label">Thu</div>
+                            </div>
+                            <div class="chart-bar" style="height: 70%;">
+                                <div class="bar-value">401</div>
+                                <div class="bar-label">Fri</div>
+                            </div>
+                            <div class="chart-bar" style="height: 55%;">
+                                <div class="bar-value">315</div>
+                                <div class="bar-label">Sat</div>
+                            </div>
+                            <div class="chart-bar" style="height: 40%;">
+                                <div class="bar-value">228</div>
+                                <div class="bar-label">Sun</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Blogs Section -->
+                <section id="blogs">
+                    <div class="section-header">
+                        <h2 class="section-title">My Blogs</h2>
+                        <button class="create-btn" onclick="openModal('blog')">+ Create Blog</button>
+                    </div>
+
+                    <div class="content-grid">
+                        <!-- Sample Blog Card -->
+                        <article class="content-card">
+                            <div class="card-image">
+                                <img src="data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23667eea'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EBlog Image%3C/text%3E%3C/svg%3E" alt="Blog">
+                                <div class="card-badge">PUBLISHED</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span>2 days ago</span>
+                                    <span>•</span>
+                                    <span>5 min read</span>
+                                </div>
+                                <h3 class="card-title">Getting Started with Web Development: A Comprehensive Guide for Beginners</h3>
+                                <p class="card-description">Learn the fundamentals of web development, from HTML and CSS to JavaScript frameworks. This guide covers everything you need to know to start your journey as a web developer.</p>
+                                <div class="card-footer">
+                                    <div class="card-stats">
+                                        <div class="stat-item">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                                            1,234
+                                        </div>
+                                        <div class="stat-item">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                                            89
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Add more blog cards dynamically -->
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products">
+                    <div class="section-header">
+                        <h2 class="section-title">My Products</h2>
+                        <button class="create-btn" onclick="openModal('product')">+ List Product</button>
+                    </div>
+
+                    <div class="content-grid">
+                        <!-- Sample Product Card -->
+                        <article class="content-card">
+                            <div class="card-image">
+                                <img src="data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23f093fb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EProduct Image%3C/text%3E%3C/svg%3E" alt="Product">
+                                <div class="card-badge">FOR SALE</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span>Listed 5 days ago</span>
+                                </div>
+                                <h3 class="card-title">Premium WordPress Theme - Multipurpose Design</h3>
+                                <p class="card-description">A beautiful, responsive WordPress theme perfect for blogs, portfolios, and business websites. Includes 10+ pre-built layouts and lifetime updates.</p>
+                                <div class="card-footer">
+                                    <div class="card-stats">
+                                        <div class="stat-item">
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                                            456
+                                        </div>
+                                    </div>
+                                    <div class="card-price currency-value" data-inr="₹2,499" data-usd="$30">₹2,499</div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section id="profile">
+                    <div class="section-header">
+                        <h2 class="section-title">Profile</h2>
+                        <button class="create-btn">Edit Profile</button>
+                    </div>
+
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar">JD</div>
+                            <div class="profile-info">
+                                <h2>John Doe</h2>
+                                <p style="color: var(--gray);">Web Developer & Content Creator</p>
+                                <div class="social-links">
+                                    <a href="#" class="social-link">🐦 Twitter</a>
+                                    <a href="#" class="social-link">💼 LinkedIn</a>
+                                    <a href="#" class="social-link">🐙 GitHub</a>
+                                    <a href="#" class="social-link">📷 Instagram</a>
+                                    <a href="#" class="social-link">🌐 Website</a>
+                                </div>
+                            </div>
+                        </div>
+                        <p>Passionate about creating beautiful web experiences and sharing knowledge with the community. I love building things that make a difference.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Create Blog/Product Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create New Blog</h2>
+            </div>
+            <div class="modal-body">
+                <form id="createForm">
+                    <div class="form-group">
+                        <label for="title">Title (Max 100 characters)</label>
+                        <input type="text" id="title" maxlength="100" placeholder="Enter title..." required>
+                        <div class="char-counter"><span id="titleCount">0</span>/100</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description (Max 200 characters)</label>
+                        <textarea id="description" maxlength="200" rows="3" placeholder="Brief description..." required></textarea>
+                        <div class="char-counter"><span id="descCount">0</span>/200</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="content">Content (Max 10,000 characters)</label>
+                        <textarea id="content" maxlength="10000" rows="10" placeholder="Write your content here... You can use formatting, embed code, etc."></textarea>
+                        <div class="char-counter"><span id="contentCount">0</span>/10,000</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Image (Auto-compressed)</label>
+                        <div class="file-upload" onclick="document.getElementById('imageUpload').click()">
+                            <input type="file" id="imageUpload" accept="image/*">
+                            <p>📷 Click to upload or drag and drop</p>
+                            <p style="font-size: 0.85rem; color: var(--gray); margin-top: 0.5rem;">Any size accepted - we'll optimize it automatically</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="priceField" style="display: none;">
+                        <label for="price">Price</label>
+                        <input type="number" id="price" placeholder="Enter price..." min="0" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags (comma separated)</label>
+                        <input type="text" id="tags" placeholder="web development, tutorial, beginner">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="create-btn" onclick="submitForm()">Publish</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h4>Publish Your Potential</h4>
+                <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Empowering creators to share their stories and monetize their products.</p>
+            </div>
+            <div>
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            © <span id="copyrightYear">2026</span> Publish Your Potential. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic Time and Date Updates
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Update time
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            document.getElementById('currentTime').textContent = timeString;
+            
+            // Update date
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const dateString = now.toLocaleDateString('en-US', options);
+            document.getElementById('currentDate').textContent = dateString;
+            
+            // Update copyright year
+            document.getElementById('copyrightYear').textContent = now.getFullYear();
+        }
+
+        // Initialize and update every second
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Currency Toggle
+        let currentCurrency = 'INR';
+        const exchangeRate = 83; // 1 USD = 83 INR (example rate)
+
+        function toggleCurrency() {
+            currentCurrency = currentCurrency === 'INR' ? 'USD' : 'INR';
+            const display = document.getElementById('currencyDisplay');
+            display.textContent = currentCurrency === 'INR' ? '₹ INR' : '$ USD';
+            
+            // Update all currency values
+            const currencyElements = document.querySelectorAll('.currency-value');
+            currencyElements.forEach(el => {
+                if (currentCurrency === 'USD') {
+                    el.textContent = el.dataset.usd;
+                } else {
+                    el.textContent = el.dataset.inr;
+                }
+            });
+        }
+
+        // Modal Functions
+        function openModal(type) {
+            const modal = document.getElementById('createModal');
+            const title = document.getElementById('modalTitle');
+            const priceField = document.getElementById('priceField');
+            
+            if (type === 'blog') {
+                title.textContent = 'Create New Blog';
+                priceField.style.display = 'none';
+            } else {
+                title.textContent = 'List New Product';
+                priceField.style.display = 'block';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('createModal').classList.remove('active');
+            document.getElementById('createForm').reset();
+            updateCharCounters();
+        }
+
+        // Character Counters
+        function updateCharCounters() {
+            const title = document.getElementById('title');
+            const description = document.getElementById('description');
+            const content = document.getElementById('content');
+            
+            document.getElementById('titleCount').textContent = title.value.length;
+            document.getElementById('descCount').textContent = description.value.length;
+            document.getElementById('contentCount').textContent = content.value.length;
+        }
+
+        // Add event listeners for character counting
+        document.getElementById('title')?.addEventListener('input', updateCharCounters);
+        document.getElementById('description')?.addEventListener('input', updateCharCounters);
+        document.getElementById('content')?.addEventListener('input', updateCharCounters);
+
+        // Image Upload Handler with Compression
+        document.getElementById('imageUpload')?.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Simulate compression (in real implementation, use canvas API)
+                console.log('Original size:', (file.size / 1024 / 1024).toFixed(2), 'MB');
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // Here you would implement actual image compression
+                    // For now, just show a success message
+                    const uploadDiv = e.target.parentElement;
+                    uploadDiv.innerHTML = `
+                        <p>✅ Image uploaded and compressed</p>
+                        <p style="font-size: 0.85rem; color: var(--gray); margin-top: 0.5rem;">
+                            ${file.name} - Optimized for best quality
+                        </p>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form Submission
+        function submitForm() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const content = document.getElementById('content').value;
+            
+            if (!title || !description) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Here you would send data to your backend
+            console.log('Submitting:', { title, description, content });
+            
+            alert('Published successfully! 🎉');
+            closeModal();
+        }
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('createModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
